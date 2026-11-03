@@ -24,7 +24,7 @@ pip install numpy pandas matplotlib seaborn scikit-learn
 pip install imbalanced-learn xgboost shap
 ```
 
-Python 3.9 or newer. Without `imbalanced-learn` the notebook falls back to random oversampling instead of SMOTE; without `xgboost` it uses scikit-learn's `HistGradientBoostingClassifier`; without `shap` it skips the SHAP plot (permutation importance is always shown).
+Python 3.9 or newer. Without `imbalanced-learn`, the notebook falls back to random oversampling instead of SMOTE; without `xgboost,` it uses scikit-learn's `HistGradientBoostingClassifier`; without `shap` it skips the SHAP plot (permutation importance is always shown).
 
 ## How to run
 
@@ -33,19 +33,19 @@ Python 3.9 or newer. Without `imbalanced-learn` the notebook falls back to rando
 
 ## Workflow
 
-1. Load, drop duplicates, check class balance and the "accuracy trap".
+1. Load, drop duplicates, check class balance, and the "accuracy trap".
 2. EDA: class counts, Amount distribution, correlations with fraud, fraud by hour.
 3. Stratified 60/20/20 train/validation/test split; scale only `Time` and `Amount` (`RobustScaler`).
 4. Baselines: dummy classifier, plain Logistic Regression.
 5. Imbalance handling: class weights, oversampling/SMOTE (train only), undersampling.
 6. Gradient boosting (HistGradientBoosting, XGBoost if installed).
 7. Metrics: Average Precision (area under the PR curve), ROC-AUC, precision, recall, F1, PR curves.
-8. Cost-based threshold: missed fraud costs its transaction amount, a false alarm costs a fixed review fee (`FP_COST`, default 5, adjustable). The threshold is tuned on validation data.
+8. Cost-based threshold: missed fraud costs its transaction amount; a false alarm costs a fixed review fee (`FP_COST`, default 5, adjustable). The threshold is tuned on validation data.
 9. One-time evaluation on the test set, confusion matrix, explanation with permutation importance (SHAP optional).
 
 ## Notes
 
-- Results are not included here: they depend on running the notebook on the real Kaggle file. The code was tested end to end on a synthetic dataset with the same columns, only to confirm it runs.
+- Results are not included here: they depend on running the notebook on the real Kaggle file. The code was tested end-to-end on a synthetic dataset with the same columns, only to confirm it runs.
 - `FP_COST = 5` is an assumption; change it to match your scenario and state it in your report.
 - Use Average Precision and cost, not accuracy: a model that flags nothing is about 99.8% accurate.
 - Features are anonymised PCA components, so findings cannot be explained in business terms.
